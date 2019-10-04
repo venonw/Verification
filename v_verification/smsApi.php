@@ -6,8 +6,8 @@
    \_/|___|_|_|___|_|_|_|_|_|
 
 Venon Web Developers, venon.ir
-201607
-version 1.5
+201905
+version 2.0
 =========================================*/
 class smsApi {
 
@@ -32,6 +32,20 @@ class smsApi {
     $parameters['isflash'] = false;
 
     $Data  = $sms_client ->SendSimpleSMS2($parameters)->SendSimpleSMS2Result;
+  }
+
+  public function sendVoice($to, $sms_content) {
+    $sms_client = new SoapClient('http://api.payamak-panel.com/post/Voice.asmx?wsdl', array('encoding'=>'UTF-8'));
+
+    $parameters['username'] = $this->username;
+    $parameters['password'] = $this->password;
+    $parameters['to'] = $to;
+    $parameters['from'] = $this->from;
+    $parameters['smsBody'] = $sms_content;
+    $parameters['speechBody'] = $sms_content;
+    $parameters['isflash'] = false;
+
+    $Data  = $sms_client ->SendSMSWithSpeechText($parameters)->SendSMSWithSpeechTextResult;
   }
 }
 ?>
