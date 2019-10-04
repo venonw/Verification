@@ -6,8 +6,8 @@
 	 \_/|___|_|_|___|_|_|_|_|_|
 
 Venon Web Developers, venon.ir
-201607
-version 1.6
+201905
+version 2.0
 =========================================*/
 
 function v_verification_hook_check($vars) {
@@ -30,10 +30,7 @@ function v_verification_hook_check($vars) {
 
 	$uid = $_SESSION['uid'];
 
-
-
 	if (!empty($uid) AND $phoneverify == 'on') {
-;
 
 		//forbidfiles
 		$forbidfilesarray = explode(",",$forbidfiles);
@@ -55,18 +52,25 @@ function v_verification_hook_check($vars) {
 		$customfield = mysql_fetch_array($customfield);
 		$phone = $customfield['value'];
 
-
-
 		if (in_array($filename, $forbidfilesarray) OR in_array($query, $forbidfilesarray)) {
 			if($check['phonestatus'] == 'pend') {
+				ob_start();
 				header('location: index.php?m=v_verification');
+				exit();
 			}
 			if($check['phone'] !== $phone) {
+				ob_start();
 				header('location: index.php?m=v_verification');
+				exit();
 			}
 			if(empty($check['phone'])) {
+				ob_start();
 				header('location: index.php?m=v_verification');
+				exit();
 			}
+
+
+
 		}
 
 		if($check['phonestatus'] == 'pend' OR $check['phone'] !== $phone OR empty($check['phone'])) {

@@ -9,16 +9,20 @@
 {/if}
 {if $erroralert eq 'true'}
 	<div class="alert-message error alert alert-block alert-danger">
-		<p><form id="resendform" method="POST" action="index.php?m=v_verification" class="form-inline pull-left">
+		<p>{if $phone}<form id="resendform" method="POST" action="index.php?m=v_verification" class="form-inline pull-left">
 			<input type="hidden" name="resend" value="sms" />
 			<input id="submit" type="submit" class="btn btn-danger btn-small" value="ارسال مجدد پیامک"
 				{if $smarty.post.resend eq 'sms' OR $smarty.session.resend}disabled{/if}
 			/>
-		</form>
+		</form>{/if}
 		<strong>هنوز برخی از اطلاعات شما تایید نشده اند، قبل از ایجاد سفارش و خرید ابتدا باید اطلاعات زیر را تایید نمایید:</strong>
 			<br/>
-				{if $phoneverify eq 'on'}{if $send.sms}<strong>تایید شماره تلفن همراه:</strong> پیامی همراه با کد فعال سازی به شماره {$phone} ارسال شد.
-				{/if}{/if}
+				{if $phoneverify eq 'on'}
+					{if $phone}<strong>تایید شماره تلفن همراه:</strong> پیامی همراه با کد فعال سازی به شماره {$phone} ارسال شد.{else}
+						<strong>لطفا تلفن همراه خود را ثبت بفرمایید </strong> <a href="clientarea.php?action=details" class="btn btn-danger btn-sm">ویرایش مشخصات</a>
+
+					{/if}
+				{/if}
 		</p>
 	</div>
 {/if}
